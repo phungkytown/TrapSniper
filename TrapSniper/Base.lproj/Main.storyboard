@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tbR-lR-cEA">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--Report Trap View Controller-->
+        <!--Item-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ReportTrapViewController" sceneMemberID="viewController">
@@ -32,9 +32,96 @@
                             <constraint firstAttribute="centerY" secondItem="qSD-8n-c2u" secondAttribute="centerY" id="n0A-pV-i6S"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="uk2-cs-G8x"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1321" y="-20"/>
+        </scene>
+        <!--Traps Map View Controller-->
+        <scene sceneID="Imv-yU-IuH">
+            <objects>
+                <viewController id="QA9-KZ-SVb" customClass="TrapsMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Oxq-G4-1w3"/>
+                        <viewControllerLayoutGuide type="bottom" id="qNm-KJ-Q8H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xRO-rG-nWi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTP-kf-s1f">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="QA9-KZ-SVb" id="hcD-OJ-MBg"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="cTP-kf-s1f" secondAttribute="bottom" id="Ee3-Xq-eJ9"/>
+                            <constraint firstItem="cTP-kf-s1f" firstAttribute="leading" secondItem="xRO-rG-nWi" secondAttribute="leading" id="Hpu-ey-XTg"/>
+                            <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="xRO-rG-nWi" secondAttribute="top" id="mdf-Pv-hbF"/>
+                            <constraint firstAttribute="trailing" secondItem="cTP-kf-s1f" secondAttribute="trailing" id="nzM-XI-OgE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZgU-zB-wsJ">
+                        <barButtonItem key="leftBarButtonItem" title="Mark Region" id="hZI-Ue-FTB">
+                            <connections>
+                                <action selector="onMarkRegionButtonTapped:" destination="QA9-KZ-SVb" id="JXo-XD-XO8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Update Location" id="2Ee-jO-oob">
+                            <connections>
+                                <action selector="onZoomToLocationButtonTapped:" destination="QA9-KZ-SVb" id="cAB-Bh-tYN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="cTP-kf-s1f" id="QAr-MV-vFX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hP5-6o-VY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2133" y="759"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="yfR-09-24p">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="tbR-lR-cEA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="cll-JP-xcw">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="3r3-41-Ml3"/>
+                        <segue destination="DuF-gr-CAB" kind="relationship" relationship="viewControllers" id="2lF-RS-hU0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YZg-kC-C8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="354"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="dox-MQ-2wx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DuF-gr-CAB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="ckE-ci-27M"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lBm-a0-2oe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QA9-KZ-SVb" kind="relationship" relationship="rootViewController" id="Eco-iL-jrk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QqL-JY-Z15" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321" y="759"/>
         </scene>
     </scenes>
 </document>
