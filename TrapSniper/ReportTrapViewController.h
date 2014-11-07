@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ReportTrapViewController.h
 //  TrapSniper
 //
 //  Created by Hai Phung on 11/6/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ReportTrapViewController : UIViewController
 
 
 @end
