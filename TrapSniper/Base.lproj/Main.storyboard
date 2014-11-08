@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Report-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ReportTrapViewController" sceneMemberID="viewController">
@@ -32,7 +32,7 @@
                             <constraint firstAttribute="centerY" secondItem="qSD-8n-c2u" secondAttribute="centerY" id="n0A-pV-i6S"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="uk2-cs-G8x"/>
+                    <tabBarItem key="tabBarItem" title="Report" id="uk2-cs-G8x"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -56,21 +56,31 @@
                                     <outlet property="delegate" destination="QA9-KZ-SVb" id="hcD-OJ-MBg"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-kL-rRN">
+                                <rect key="frame" x="264" y="105" width="72" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="dtV-wf-yzK"/>
+                                </constraints>
+                                <state key="normal" title="Fetch">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onFetchButtonTapped:" destination="QA9-KZ-SVb" eventType="touchUpInside" id="6x5-jV-m13"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="cTP-kf-s1f" secondAttribute="bottom" id="Ee3-Xq-eJ9"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="leading" secondItem="xRO-rG-nWi" secondAttribute="leading" id="Hpu-ey-XTg"/>
+                            <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="3eC-kL-rRN" secondAttribute="bottom" constant="-135" id="YIh-3g-iR9"/>
+                            <constraint firstAttribute="centerX" secondItem="3eC-kL-rRN" secondAttribute="centerX" id="Z2U-G3-4jW"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="xRO-rG-nWi" secondAttribute="top" id="mdf-Pv-hbF"/>
                             <constraint firstAttribute="trailing" secondItem="cTP-kf-s1f" secondAttribute="trailing" id="nzM-XI-OgE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZgU-zB-wsJ">
-                        <barButtonItem key="leftBarButtonItem" title="Mark Region" id="hZI-Ue-FTB">
-                            <connections>
-                                <action selector="onMarkRegionButtonTapped:" destination="QA9-KZ-SVb" id="JXo-XD-XO8"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Update Location" id="2Ee-jO-oob">
                             <connections>
                                 <action selector="onZoomToLocationButtonTapped:" destination="QA9-KZ-SVb" id="cAB-Bh-tYN"/>

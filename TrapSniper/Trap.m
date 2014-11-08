@@ -10,7 +10,9 @@
 
 @implementation Trap
 
+@dynamic objectId;
 @dynamic location;
+@dynamic createdAt;
 
 + (void)load {
     [self registerSubclass];

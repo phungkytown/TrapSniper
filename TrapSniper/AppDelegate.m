@@ -19,6 +19,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Setup Parse.
     [Parse setApplicationId:@"LR2JX8yTOQVFWTKmcX4fMBjqbFpqIhj8vqcGBmHr" clientKey:@"ef2L9umUUKJziwktdFeJGfavCvZu71C6BdeBMYBD"];
+    
+    // Register for local notifications.
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
     return YES;
 }
 

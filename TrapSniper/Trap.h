@@ -12,7 +12,9 @@
 
 @interface Trap : PFObject <PFSubclassing>
 
+@property (nonatomic) NSString *objectId;
 @property (nonatomic) PFGeoPoint *location;
+@property (nonatomic) NSDate *createdAt;
 
 + (NSString *)parseClassName;
 
