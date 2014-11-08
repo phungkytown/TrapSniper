@@ -17,5 +17,6 @@
 @property (nonatomic) NSDate *createdAt;
 
 + (NSString *)parseClassName;
++ (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *))completion;
 
 @end

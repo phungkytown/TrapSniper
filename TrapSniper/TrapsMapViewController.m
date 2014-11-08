@@ -34,20 +34,17 @@
     [self.locationManager stopUpdatingLocation];
 }
 
-- (void)fetchTrapsNearLocation {
-    PFGeoPoint *currentGeoPoint = [PFGeoPoint geoPointWithLocation:self.currentLocation];
-    PFQuery *trapsQuery = [Trap query];
-    [trapsQuery whereKey:@"location" nearGeoPoint:currentGeoPoint withinMiles:10.0];
-    [trapsQuery orderByDescending:@"createdAt"];
-    [trapsQuery setLimit:20];
-    [trapsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [self configureRegionsForTraps:objects radius:100.0];
-        }
-    }];
+
+- (void)overlayMapWithSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
+    [self.mapView removeOverlays:self.mapView.overlays];
+    for (Trap *speedTrap in speedTraps) {
+        CLLocationCoordinate2D circleCoordinate = CLLocationCoordinate2DMake(speedTrap.location.latitude, speedTrap.location.longitude);
+        MKCircle *circle = [MKCircle circleWithCenterCoordinate:circleCoordinate radius:radius];
+        [self.mapView addOverlay:circle];
+    }
 }
 
-- (void)configureRegionsForTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
+- (void)configureRegionsForSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
     for (Trap *speedTrap in speedTraps) {
         // Create a region.
         CLLocationCoordinate2D regionCenter = CLLocationCoordinate2DMake(speedTrap.location.latitude, speedTrap.location.longitude);
@@ -60,13 +57,7 @@
         
         // Schedule a notification for the region.
         [self scheduleLocalNotificationForRegion:circularRegion];
-        
-        // Add a visual representation for the region to the map view.
-        MKCircle *regionCircle = [MKCircle circleWithCenterCoordinate:regionCenter radius:radius];
-        [self.mapView addOverlay:regionCircle];
     }
-    
-    NSLog(@"%@", self.regions);
 }
 
 - (void)scheduleLocalNotificationForRegion:(CLCircularRegion *)region {
@@ -82,13 +73,17 @@
     for (CLCircularRegion *region in self.locationManager.monitoredRegions) {
         [self.locationManager stopMonitoringForRegion:region];
     }
-    
-    // Remove the overlays from the map view.
-    [self.mapView removeOverlays:self.mapView.overlays];
 }
 
 
 #pragma mark - Map View Delegate
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    CLLocation *mapCenter = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
+    [Trap fetchTrapsNearLocation:mapCenter completionHandler:^(NSArray *speedTraps) {
+        [self overlayMapWithSpeedTraps:speedTraps radius:100.0];
+    }];
+}
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKCircle class]]) {
@@ -130,7 +125,9 @@
 #pragma mark - Actions
 
 - (IBAction)onFetchButtonTapped:(id)sender {
-    [self fetchTrapsNearLocation];
+    [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
+        [self configureRegionsForSpeedTraps:speedTraps radius:100.0];
+    }];
 }
 
 - (IBAction)onZoomToLocationButtonTapped:(id)sender {
