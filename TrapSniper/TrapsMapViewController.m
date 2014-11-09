@@ -14,7 +14,7 @@
 @interface TrapsMapViewController () <MKMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic) NSMutableArray *regions;
+@property (nonatomic, getter=isUpdatingLocation) BOOL updatingLocation;
 
 @end
 
@@ -26,12 +26,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.locationManager startUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.locationManager stopUpdatingLocation];
+    // [self.locationManager stopUpdatingLocation];
 }
 
 
@@ -90,7 +90,7 @@
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
         circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
         circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.7];
-        circleRenderer.lineWidth = 3.0;
+        circleRenderer.lineWidth = 2.0;
         return circleRenderer;
     }
     return nil;
@@ -106,6 +106,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     // This method could fire frequently.
     // Is this where I want to perform fetches for new region data?
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
@@ -142,6 +143,32 @@
     }
 }
 
+- (IBAction)onStartButtonTapped:(id)sender {
+}
+
+- (IBAction)onLongPress:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    CGPoint touchPoint = [gesture locationInView:self.mapView];
+    CLLocationCoordinate2D touchCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    CLLocation *touchLocation = [[CLLocation alloc] initWithLatitude:touchCoordinate.latitude longitude:touchCoordinate.longitude];
+    PFGeoPoint *touchGeoPoint = [PFGeoPoint geoPointWithLocation:touchLocation];
+    Trap *speedTrap = [Trap object];
+    speedTrap.location = touchGeoPoint;
+    [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
+                [self overlayMapWithSpeedTraps:speedTraps radius:100.0];
+            }];
+        }
+    }];
+}
+
+
+#pragma mark - Accessors
+
 - (CLLocationManager *)locationManager {
     if (!_locationManager) {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ||
@@ -151,7 +178,6 @@
         } else {
             _locationManager = [[CLLocationManager alloc] init];
             _locationManager.delegate = self;
-            _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
             
             if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
                 [_locationManager requestAlwaysAuthorization];
@@ -163,13 +189,6 @@
 
 - (CLLocation *)currentLocation {
     return self.locationManager.location;
-}
-
-- (NSMutableArray *)regions {
-    if (!_regions) {
-        _regions = [NSMutableArray array];
-    }
-    return _regions;
 }
 
 @end

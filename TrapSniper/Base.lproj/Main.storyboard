@@ -52,8 +52,10 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTP-kf-s1f">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="QA9-KZ-SVb" id="hcD-OJ-MBg"/>
+                                    <outletCollection property="gestureRecognizers" destination="aeE-OT-s0z" appends="YES" id="mP8-ny-1sz"/>
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-kL-rRN">
@@ -81,6 +83,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZgU-zB-wsJ">
+                        <barButtonItem key="leftBarButtonItem" title="Start" id="efg-XI-OAa">
+                            <connections>
+                                <action selector="onStartButtonTapped:" destination="QA9-KZ-SVb" id="G12-g1-grL"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Update Location" id="2Ee-jO-oob">
                             <connections>
                                 <action selector="onZoomToLocationButtonTapped:" destination="QA9-KZ-SVb" id="cAB-Bh-tYN"/>
@@ -92,6 +99,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hP5-6o-VY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1.4999999999999996" id="aeE-OT-s0z">
+                    <connections>
+                        <action selector="onLongPress:" destination="QA9-KZ-SVb" id="u7N-IS-lyb"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2133" y="759"/>
         </scene>
