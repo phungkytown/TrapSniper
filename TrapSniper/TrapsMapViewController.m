@@ -79,6 +79,7 @@
     [self.monitoredRegions removeAllObjects];
 }
 
+
 #pragma mark - Map View Delegate
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
@@ -125,8 +126,17 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    // TODO: Alert for entering region while app is active.
     NSLog(@"Entering region: %@", region.identifier);
+    
+    if (NSClassFromString(@"UIAlertController")) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Heads up!" message:@"There's a speed trap nearby." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Heads up!" message:@"There's speed trap nearby." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
