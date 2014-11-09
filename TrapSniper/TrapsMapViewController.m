@@ -162,9 +162,14 @@
     }
 }
 
-- (IBAction)onStartButtonTapped:(id)sender {
-    
-    [self startMonitoringForSpeedTraps];
+- (IBAction)onMonitorSwitchToggled:(UISwitch *)sender {
+    if (sender.isOn) {
+        [self startMonitoringForSpeedTraps];
+        self.navigationItem.title = @"Monitoring...";
+    } else {
+        [self stopMonitoringForSpeedTraps];
+        self.navigationItem.title = @"DTMB";
+    }
 }
 
 - (IBAction)onLongPress:(UILongPressGestureRecognizer *)gesture {
@@ -201,7 +206,9 @@
             _locationManager.delegate = self;
             
             if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-                [_locationManager requestAlwaysAuthorization];
+                if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                    [_locationManager requestAlwaysAuthorization];
+                }
             }
         }
     }

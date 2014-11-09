@@ -68,10 +68,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Don't Trap Me, Bro!" id="ZgU-zB-wsJ">
-                        <barButtonItem key="leftBarButtonItem" title="Start" id="efg-XI-OAa">
-                            <connections>
-                                <action selector="onStartButtonTapped:" destination="QA9-KZ-SVb" id="G12-g1-grL"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" id="0FH-fz-H0N">
+                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KjT-tg-4Ws">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="onMonitorSwitchToggled:" destination="QA9-KZ-SVb" eventType="valueChanged" id="0BV-Tw-3MP"/>
+                                </connections>
+                            </switch>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="near_me-50" id="2Ee-jO-oob">
                             <connections>
