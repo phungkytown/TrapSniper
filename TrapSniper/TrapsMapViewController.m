@@ -14,7 +14,7 @@
 @interface TrapsMapViewController () <MKMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic, getter=isUpdatingLocation) BOOL updatingLocation;
+@property (nonatomic, getter=isMonitoring) BOOL monitoring;
 
 @end
 
@@ -24,16 +24,14 @@
     [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+
+- (void)startMonitoringForSpeedTraps {
     [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    // [self.locationManager stopUpdatingLocation];
+- (void)stopMonitoringForSpeedTraps {
+    [self.locationManager stopMonitoringSignificantLocationChanges];
 }
-
 
 - (void)overlayMapWithSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
     [self.mapView removeOverlays:self.mapView.overlays];
@@ -45,12 +43,17 @@
 }
 
 - (void)configureRegionsForSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
+    [self unregisterMonitoredRegions];
+    
     for (Trap *speedTrap in speedTraps) {
         // Create a region.
         CLLocationCoordinate2D regionCenter = CLLocationCoordinate2DMake(speedTrap.location.latitude, speedTrap.location.longitude);
         CLCircularRegion *circularRegion = [[CLCircularRegion alloc] initWithCenter:regionCenter radius:radius identifier:speedTrap.objectId];
         circularRegion.notifyOnEntry = YES;
         circularRegion.notifyOnExit = NO;
+        
+        // Keep our own reference to these regions so that we can remove them later.
+        [self.monitoredRegions addObject:circularRegion];
         
         // Register region for monitoring.
         [self.locationManager startMonitoringForRegion:circularRegion];
@@ -68,13 +71,13 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
-- (void)updateRegions {
+- (void)unregisterMonitoredRegions {
     // Unregister regions currently being monitored.
-    for (CLCircularRegion *region in self.locationManager.monitoredRegions) {
+    for (CLCircularRegion *region in self.monitoredRegions) {
         [self.locationManager stopMonitoringForRegion:region];
     }
+    [self.monitoredRegions removeAllObjects];
 }
-
 
 #pragma mark - Map View Delegate
 
@@ -90,7 +93,7 @@
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
         circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
         circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.7];
-        circleRenderer.lineWidth = 2.0;
+        circleRenderer.lineWidth = 3.0;
         return circleRenderer;
     }
     return nil;
@@ -104,14 +107,26 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    // This method could fire frequently.
-    // Is this where I want to perform fetches for new region data?
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    // We're using the significant change location service to preserve battery life.
+    CLLocation *currentLocation = locations.lastObject;
+
+    if (currentLocation.horizontalAccuracy < 0) {
+        return;
+    }
+    
+    // Check for cached locations.
+    NSTimeInterval locationTimeInterval = [currentLocation.timestamp timeIntervalSinceNow];
+    if (locationTimeInterval < 10.0) {
+        [Trap fetchTrapsNearLocation:currentLocation completionHandler:^(NSArray *speedTraps) {
+            [self configureRegionsForSpeedTraps:speedTraps radius:100.0];
+        }];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    // TODO: Alert for entering region while app is active.
     NSLog(@"Entering region: %@", region.identifier);
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
@@ -125,18 +140,12 @@
 
 #pragma mark - Actions
 
-- (IBAction)onFetchButtonTapped:(id)sender {
-    [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
-        [self configureRegionsForSpeedTraps:speedTraps radius:100.0];
-    }];
-}
-
 - (IBAction)onZoomToLocationButtonTapped:(id)sender {
     MKCoordinateSpan currentRegionSpan = self.mapView.region.span;
     if (currentRegionSpan.latitudeDelta > 1.0 || currentRegionSpan.longitudeDelta > 1.0) {
         MKCoordinateRegion region;
         region.center = self.currentLocation.coordinate;
-        region.span = MKCoordinateSpanMake(0.1, 0.1);
+        region.span = MKCoordinateSpanMake(0.05, 0.05);
         [self.mapView setRegion:region animated:YES];
     } else {
         [self.mapView setCenterCoordinate:self.currentLocation.coordinate animated:YES];
@@ -144,6 +153,8 @@
 }
 
 - (IBAction)onStartButtonTapped:(id)sender {
+    
+    [self startMonitoringForSpeedTraps];
 }
 
 - (IBAction)onLongPress:(UILongPressGestureRecognizer *)gesture {
@@ -189,6 +200,13 @@
 
 - (CLLocation *)currentLocation {
     return self.locationManager.location;
+}
+
+-(NSMutableArray *)monitoredRegions {
+    if (!_monitoredRegions) {
+        _monitoredRegions = [NSMutableArray array];
+    }
+    return _monitoredRegions;
 }
 
 @end

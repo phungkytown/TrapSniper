@@ -38,7 +38,7 @@
             </objects>
             <point key="canvasLocation" x="1321" y="-20"/>
         </scene>
-        <!--Traps Map View Controller-->
+        <!--Don't Trap Me, Bro!-->
         <scene sceneID="Imv-yU-IuH">
             <objects>
                 <viewController id="QA9-KZ-SVb" customClass="TrapsMapViewController" sceneMemberID="viewController">
@@ -58,37 +58,22 @@
                                     <outletCollection property="gestureRecognizers" destination="aeE-OT-s0z" appends="YES" id="mP8-ny-1sz"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-kL-rRN">
-                                <rect key="frame" x="264" y="105" width="72" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="dtV-wf-yzK"/>
-                                </constraints>
-                                <state key="normal" title="Fetch">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onFetchButtonTapped:" destination="QA9-KZ-SVb" eventType="touchUpInside" id="6x5-jV-m13"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="cTP-kf-s1f" secondAttribute="bottom" id="Ee3-Xq-eJ9"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="leading" secondItem="xRO-rG-nWi" secondAttribute="leading" id="Hpu-ey-XTg"/>
-                            <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="3eC-kL-rRN" secondAttribute="bottom" constant="-135" id="YIh-3g-iR9"/>
-                            <constraint firstAttribute="centerX" secondItem="3eC-kL-rRN" secondAttribute="centerX" id="Z2U-G3-4jW"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="xRO-rG-nWi" secondAttribute="top" id="mdf-Pv-hbF"/>
                             <constraint firstAttribute="trailing" secondItem="cTP-kf-s1f" secondAttribute="trailing" id="nzM-XI-OgE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ZgU-zB-wsJ">
+                    <navigationItem key="navigationItem" title="Don't Trap Me, Bro!" id="ZgU-zB-wsJ">
                         <barButtonItem key="leftBarButtonItem" title="Start" id="efg-XI-OAa">
                             <connections>
                                 <action selector="onStartButtonTapped:" destination="QA9-KZ-SVb" id="G12-g1-grL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Update Location" id="2Ee-jO-oob">
+                        <barButtonItem key="rightBarButtonItem" image="near_me-50" id="2Ee-jO-oob">
                             <connections>
                                 <action selector="onZoomToLocationButtonTapped:" destination="QA9-KZ-SVb" id="cAB-Bh-tYN"/>
                             </connections>
@@ -130,7 +115,7 @@
         <scene sceneID="dox-MQ-2wx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DuF-gr-CAB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="ckE-ci-27M"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map_marker-50" id="ckE-ci-27M"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lBm-a0-2oe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -146,4 +131,8 @@
             <point key="canvasLocation" x="1321" y="759"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map_marker-50" width="25" height="25"/>
+        <image name="near_me-50" width="25" height="25"/>
+    </resources>
 </document>
