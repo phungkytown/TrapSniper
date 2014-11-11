@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
+#import <MapKit/MapKit.h>
 
-@interface Trap : PFObject <PFSubclassing>
+@interface Trap : PFObject <PFSubclassing, MKAnnotation>
 
 @property (nonatomic) NSString *objectId;
 @property (nonatomic) PFGeoPoint *location;
@@ -18,5 +19,11 @@
 
 + (NSString *)parseClassName;
 + (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *))completion;
+
+
+#pragma mark - MKAnnotation Protocol
+
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readonly, copy) NSString *title;
 
 @end

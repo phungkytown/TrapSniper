@@ -13,6 +13,5 @@
 
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocation *currentLocation;
-@property (nonatomic) NSMutableArray *monitoredRegions;
 
 @end

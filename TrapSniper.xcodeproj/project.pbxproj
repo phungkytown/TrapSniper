@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B1FD54C1A127A050051E61B /* SetttingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1FD54B1A127A050051E61B /* SetttingsViewController.m */; };
 		8BCC83E51A0C597400BCAD61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83E41A0C597400BCAD61 /* main.m */; };
 		8BCC83E81A0C597400BCAD61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83E71A0C597400BCAD61 /* AppDelegate.m */; };
-		8BCC83EB1A0C597400BCAD61 /* ReportTrapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83EA1A0C597400BCAD61 /* ReportTrapViewController.m */; };
 		8BCC83EE1A0C597400BCAD61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83EC1A0C597400BCAD61 /* Main.storyboard */; };
 		8BCC83F01A0C597400BCAD61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83EF1A0C597400BCAD61 /* Images.xcassets */; };
 		8BCC83F31A0C597400BCAD61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83F11A0C597400BCAD61 /* LaunchScreen.xib */; };
@@ -27,7 +27,6 @@
 		8BCC841F1A0C5CB700BCAD61 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84141A0C5CB700BCAD61 /* Security.framework */; };
 		8BCC84201A0C5CB700BCAD61 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84151A0C5CB700BCAD61 /* StoreKit.framework */; };
 		8BCC84211A0C5CB700BCAD61 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84161A0C5CB700BCAD61 /* SystemConfiguration.framework */; };
-		8BCC84241A0C62FA00BCAD61 /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC84231A0C62FA00BCAD61 /* LocationService.m */; };
 		8BCC84271A0C840100BCAD61 /* Trap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC84261A0C840100BCAD61 /* Trap.m */; };
 		8BCC842A1A0D068B00BCAD61 /* TrapsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC84291A0D068B00BCAD61 /* TrapsMapViewController.m */; };
 /* End PBXBuildFile section */
@@ -43,13 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B1FD54A1A127A050051E61B /* SetttingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetttingsViewController.h; sourceTree = "<group>"; };
+		8B1FD54B1A127A050051E61B /* SetttingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetttingsViewController.m; sourceTree = "<group>"; };
 		8BCC83DF1A0C597400BCAD61 /* TrapSniper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrapSniper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCC83E31A0C597400BCAD61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BCC83E41A0C597400BCAD61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BCC83E61A0C597400BCAD61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8BCC83E71A0C597400BCAD61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8BCC83E91A0C597400BCAD61 /* ReportTrapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportTrapViewController.h; sourceTree = "<group>"; };
-		8BCC83EA1A0C597400BCAD61 /* ReportTrapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportTrapViewController.m; sourceTree = "<group>"; };
 		8BCC83ED1A0C597400BCAD61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BCC83EF1A0C597400BCAD61 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8BCC83F21A0C597400BCAD61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -69,8 +68,6 @@
 		8BCC84141A0C5CB700BCAD61 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8BCC84151A0C5CB700BCAD61 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8BCC84161A0C5CB700BCAD61 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8BCC84221A0C62FA00BCAD61 /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
-		8BCC84231A0C62FA00BCAD61 /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		8BCC84251A0C840100BCAD61 /* Trap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trap.h; sourceTree = "<group>"; };
 		8BCC84261A0C840100BCAD61 /* Trap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trap.m; sourceTree = "<group>"; };
 		8BCC84281A0D068B00BCAD61 /* TrapsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrapsMapViewController.h; sourceTree = "<group>"; };
@@ -131,16 +128,14 @@
 			children = (
 				8BCC83E61A0C597400BCAD61 /* AppDelegate.h */,
 				8BCC83E71A0C597400BCAD61 /* AppDelegate.m */,
-				8BCC83E91A0C597400BCAD61 /* ReportTrapViewController.h */,
-				8BCC83EA1A0C597400BCAD61 /* ReportTrapViewController.m */,
 				8BCC84281A0D068B00BCAD61 /* TrapsMapViewController.h */,
 				8BCC84291A0D068B00BCAD61 /* TrapsMapViewController.m */,
+				8B1FD54A1A127A050051E61B /* SetttingsViewController.h */,
+				8B1FD54B1A127A050051E61B /* SetttingsViewController.m */,
 				8BCC83EC1A0C597400BCAD61 /* Main.storyboard */,
 				8BCC83EF1A0C597400BCAD61 /* Images.xcassets */,
 				8BCC83F11A0C597400BCAD61 /* LaunchScreen.xib */,
 				8BCC83E21A0C597400BCAD61 /* Supporting Files */,
-				8BCC84221A0C62FA00BCAD61 /* LocationService.h */,
-				8BCC84231A0C62FA00BCAD61 /* LocationService.m */,
 				8BCC84251A0C840100BCAD61 /* Trap.h */,
 				8BCC84261A0C840100BCAD61 /* Trap.m */,
 			);
@@ -287,10 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BCC84271A0C840100BCAD61 /* Trap.m in Sources */,
-				8BCC83EB1A0C597400BCAD61 /* ReportTrapViewController.m in Sources */,
 				8BCC842A1A0D068B00BCAD61 /* TrapsMapViewController.m in Sources */,
 				8BCC83E81A0C597400BCAD61 /* AppDelegate.m in Sources */,
-				8BCC84241A0C62FA00BCAD61 /* LocationService.m in Sources */,
+				8B1FD54C1A127A050051E61B /* SetttingsViewController.m in Sources */,
 				8BCC83E51A0C597400BCAD61 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

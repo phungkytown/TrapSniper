@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tbR-lR-cEA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DuF-gr-CAB">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--Report-->
-        <scene sceneID="ufC-wZ-h7g">
-            <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ReportTrapViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-8n-c2u">
-                                <rect key="frame" x="235" y="285" width="130" height="30"/>
-                                <state key="normal" title="Report Speed Trap">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onReportTrapButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1Ib-RI-9dP"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="qSD-8n-c2u" secondAttribute="centerX" id="01A-lR-H7R"/>
-                            <constraint firstAttribute="centerY" secondItem="qSD-8n-c2u" secondAttribute="centerY" id="n0A-pV-i6S"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Report" id="uk2-cs-G8x"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1321" y="-20"/>
-        </scene>
-        <!--Don't Trap Me, Bro!-->
+        <!--speed traps near you-->
         <scene sceneID="Imv-yU-IuH">
             <objects>
                 <viewController id="QA9-KZ-SVb" customClass="TrapsMapViewController" sceneMemberID="viewController">
@@ -47,27 +13,58 @@
                         <viewControllerLayoutGuide type="bottom" id="qNm-KJ-Q8H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xRO-rG-nWi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cTP-kf-s1f">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="QA9-KZ-SVb" id="hcD-OJ-MBg"/>
                                     <outletCollection property="gestureRecognizers" destination="aeE-OT-s0z" appends="YES" id="mP8-ny-1sz"/>
                                 </connections>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gwu-hd-951">
+                                <rect key="frame" x="0.0" y="466" width="600" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="B30-Lo-710"/>
+                                    <constraint firstAttribute="height" constant="70" id="XIw-cx-FYj"/>
+                                </constraints>
+                                <items/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="B30-Lo-710"/>
+                                    </mask>
+                                </variation>
+                            </toolbar>
+                            <button opaque="NO" alpha="0.89999999999999991" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K01-pJ-Pbg">
+                                <rect key="frame" x="625" y="445" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="Tjt-6I-Pse"/>
+                                    <constraint firstAttribute="height" constant="75" id="sIl-he-UqY"/>
+                                </constraints>
+                                <state key="normal" image="report-trap-button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onReportTrapButtonTapped:" destination="QA9-KZ-SVb" eventType="touchUpInside" id="z5g-VZ-FZT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="cTP-kf-s1f" secondAttribute="bottom" id="Ee3-Xq-eJ9"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="leading" secondItem="xRO-rG-nWi" secondAttribute="leading" id="Hpu-ey-XTg"/>
+                            <constraint firstAttribute="trailing" secondItem="K01-pJ-Pbg" secondAttribute="trailing" constant="-100" id="IU2-pX-ptX"/>
+                            <constraint firstItem="Gwu-hd-951" firstAttribute="leading" secondItem="xRO-rG-nWi" secondAttribute="leading" id="c1R-1z-w56"/>
+                            <constraint firstItem="qNm-KJ-Q8H" firstAttribute="top" secondItem="Gwu-hd-951" secondAttribute="bottom" id="dX0-Ut-p18"/>
+                            <constraint firstAttribute="trailing" secondItem="Gwu-hd-951" secondAttribute="trailing" id="hjp-uS-Ise"/>
                             <constraint firstItem="cTP-kf-s1f" firstAttribute="top" secondItem="xRO-rG-nWi" secondAttribute="top" id="mdf-Pv-hbF"/>
                             <constraint firstAttribute="trailing" secondItem="cTP-kf-s1f" secondAttribute="trailing" id="nzM-XI-OgE"/>
+                            <constraint firstItem="qNm-KJ-Q8H" firstAttribute="top" secondItem="K01-pJ-Pbg" secondAttribute="bottom" constant="16" id="wcg-RG-scB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Don't Trap Me, Bro!" id="ZgU-zB-wsJ">
+                    <navigationItem key="navigationItem" title="speed traps near you" id="ZgU-zB-wsJ">
                         <barButtonItem key="leftBarButtonItem" id="0FH-fz-H0N">
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KjT-tg-4Ws">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
@@ -77,14 +74,17 @@
                                 </connections>
                             </switch>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="near_me-50" id="2Ee-jO-oob">
+                        <barButtonItem key="rightBarButtonItem" image="settings" id="Fpz-nk-bsb">
+                            <color key="tintColor" red="0.8901960784313725" green="0.49803921568627452" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="onZoomToLocationButtonTapped:" destination="QA9-KZ-SVb" id="cAB-Bh-tYN"/>
+                                <segue destination="2Ys-E9-3CU" kind="presentation" id="Opy-Z7-TXs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="cTP-kf-s1f" id="QAr-MV-vFX"/>
+                        <outlet property="reportButtonTrailingConstraint" destination="IU2-pX-ptX" id="NbD-Fv-jDK"/>
+                        <outlet property="toolbar" destination="Gwu-hd-951" id="PoY-gy-YY2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hP5-6o-VY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -96,24 +96,48 @@
             </objects>
             <point key="canvasLocation" x="2133" y="759"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="yfR-09-24p">
+        <!--settings-->
+        <scene sceneID="EHV-QM-cAi">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="tbR-lR-cEA" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="cll-JP-xcw">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="DuF-gr-CAB" kind="relationship" relationship="viewControllers" id="2lF-RS-hU0"/>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="3r3-41-Ml3"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YZg-kC-C8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="trh-jr-Jld" customClass="SetttingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aB8-97-fhp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchCell" textLabel="5Fl-ZI-P6j" rowHeight="44" style="IBUITableViewCellStyleDefault" id="2q3-t0-DnU">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2q3-t0-DnU" id="tt0-mf-wG0">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="GPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Fl-ZI-P6j">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="trh-jr-Jld" id="h4p-Ve-hbC"/>
+                            <outlet property="delegate" destination="trh-jr-Jld" id="ubg-oe-IGU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="settings" id="OMF-Op-cRE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8qp-eG-awy">
+                            <color key="tintColor" red="0.89019607840000003" green="0.49803921569999998" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="onDoneButtonTapped:" destination="trh-jr-Jld" id="pre-X9-b6Q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5P7-27-8dZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="559" y="354"/>
+            <point key="canvasLocation" x="3798" y="703"/>
         </scene>
         <!--Map-->
         <scene sceneID="dox-MQ-2wx">
@@ -121,7 +145,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DuF-gr-CAB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map_marker-50" id="ckE-ci-27M"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lBm-a0-2oe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lBm-a0-2oe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -134,9 +158,28 @@
             </objects>
             <point key="canvasLocation" x="1321" y="759"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gb9-ed-dzV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ys-E9-3CU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zxl-dY-uRx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="trh-jr-Jld" kind="relationship" relationship="rootViewController" id="3wD-yP-SzM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1m-zf-w0B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2986" y="671"/>
+        </scene>
     </scenes>
     <resources>
         <image name="map_marker-50" width="25" height="25"/>
-        <image name="near_me-50" width="25" height="25"/>
+        <image name="report-trap-button" width="75" height="75"/>
+        <image name="settings" width="25" height="25"/>
     </resources>
 </document>

@@ -25,7 +25,7 @@
 + (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *))completion {
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLocation:location];
     PFQuery *trapsQuery = [Trap query];
-    [trapsQuery whereKey:@"location" nearGeoPoint:geoPoint withinMiles:5.0];
+    [trapsQuery whereKey:@"location" nearGeoPoint:geoPoint withinMiles:10.0];
     [trapsQuery orderByDescending:@"createdAt"];
     [trapsQuery setLimit:20];
     [trapsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -33,6 +33,20 @@
             completion(objects);
         }
     }];
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake(self.location.latitude, self.location.longitude);
+}
+
+- (NSString *)title {
+    static NSDateFormatter *dateFormatter = nil;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateStyle = NSDateFormatterLongStyle;
+        dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    }
+    return [NSString stringWithFormat:@"Reported on %@", [dateFormatter stringFromDate:self.createdAt]];
 }
 
 @end

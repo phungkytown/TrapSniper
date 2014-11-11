@@ -11,10 +11,16 @@
 #import "TrapsMapViewController.h"
 #import "Trap.h"
 
+#define kRegionRadius 50.0
+#define kRegionOverlayRadius 500.0
+#define kRedColor [UIColor colorWithRed:177.0/255.0 green:29.0/255.0 blue:44.0/255.0 alpha:1.0]
+
 @interface TrapsMapViewController () <MKMapViewDelegate>
 
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *reportButtonTrailingConstraint;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic, getter=isMonitoring) BOOL monitoring;
+@property (nonatomic, getter=isGPSOn) BOOL GPSOn;
 
 @end
 
@@ -22,22 +28,71 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // User tracking button.
+    MKUserTrackingBarButtonItem *userTrackingButtonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+    
+    [self.toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolbar setShadowImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny];
+    [self.toolbar setBarTintColor:[UIColor colorWithRed:177.0/255.0 green:29.0/255.0 blue:44.0/255.0 alpha:1.0]];
+    self.toolbar.items = @[userTrackingButtonItem];
+    
+    // Setup the location manager.
+    [self setupLocationManager];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.reportButtonTrailingConstraint.constant = 16;
+        [self.view layoutIfNeeded];
+    } completion:nil];
 }
 
 
+#pragma mark - Helper Methods
+
+- (void)setupLocationManager {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    
+    NSLog(@"%@", self.currentLocation);
+}
+
 - (void)startMonitoringForSpeedTraps {
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    if ([CLLocationManager locationServicesEnabled]) {
+        if (self.isGPSOn) {
+            [self.locationManager startUpdatingLocation];
+        } else {
+            [self.locationManager startMonitoringSignificantLocationChanges];
+        }
+    }
 }
 
 - (void)stopMonitoringForSpeedTraps {
-    [self.locationManager stopMonitoringSignificantLocationChanges];
+    [self unregisterMonitoredRegions];
+    if (self.isGPSOn) {
+        [self.locationManager stopUpdatingLocation];
+    } else {
+        [self.locationManager stopMonitoringSignificantLocationChanges];
+    }
 }
 
 - (void)overlayMapWithSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
+    [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView removeOverlays:self.mapView.overlays];
+    
     for (Trap *speedTrap in speedTraps) {
+        // Create a circular overlay.
         CLLocationCoordinate2D circleCoordinate = CLLocationCoordinate2DMake(speedTrap.location.latitude, speedTrap.location.longitude);
-        MKCircle *circle = [MKCircle circleWithCenterCoordinate:circleCoordinate radius:radius];
+        MKCircle *circle = [MKCircle circleWithCenterCoordinate:circleCoordinate radius:kRegionOverlayRadius];
+        [self.mapView addAnnotation:speedTrap];
         [self.mapView addOverlay:circle];
     }
 }
@@ -52,9 +107,6 @@
         circularRegion.notifyOnEntry = YES;
         circularRegion.notifyOnExit = NO;
         
-        // Keep our own reference to these regions so that we can remove them later.
-        [self.monitoredRegions addObject:circularRegion];
-        
         // Register region for monitoring.
         [self.locationManager startMonitoringForRegion:circularRegion];
         
@@ -68,15 +120,17 @@
     notification.alertBody = [NSString stringWithFormat:@"Heads up! There's a speed trap nearby. <Region: %@>", region.identifier];
     notification.regionTriggersOnce = NO;
     notification.region = region;
+    notification.soundName = UILocalNotificationDefaultSoundName;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 - (void)unregisterMonitoredRegions {
     // Unregister regions currently being monitored.
-    for (CLCircularRegion *region in self.monitoredRegions) {
+    for (CLCircularRegion *region in self.locationManager.monitoredRegions.allObjects) {
         [self.locationManager stopMonitoringForRegion:region];
     }
-    [self.monitoredRegions removeAllObjects];
+    
+    NSLog(@"%@", self.locationManager.monitoredRegions.allObjects);
 }
 
 
@@ -85,21 +139,42 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     CLLocation *mapCenter = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
     [Trap fetchTrapsNearLocation:mapCenter completionHandler:^(NSArray *speedTraps) {
-        [self overlayMapWithSpeedTraps:speedTraps radius:100.0];
+        [self overlayMapWithSpeedTraps:speedTraps radius:kRegionRadius];
     }];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    
+    MKAnnotationView *pin = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"SpeedTrapPin"];
+    pin.image = [[UIImage alloc] init];
+    pin.canShowCallout = YES;
+    return pin;
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKCircle class]]) {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
-        circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
-        circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.7];
-        circleRenderer.lineWidth = 3.0;
+        circleRenderer.fillColor = [kRedColor colorWithAlphaComponent:0.2];
+        circleRenderer.strokeColor = [kRedColor colorWithAlphaComponent:0.75];
+        circleRenderer.lineWidth = 1.0;
         return circleRenderer;
     }
     return nil;
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    // Ensure that code only executes once.
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        MKCoordinateRegion region;
+        region.center = userLocation.coordinate;
+        region.span = MKCoordinateSpanMake(0.1, 0.1);
+        [mapView setRegion:region animated:NO];
+    });
+}
 
 #pragma mark - Location Manager Delegate
 
@@ -110,19 +185,9 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"%@", NSStringFromSelector(_cmd));
     // We're using the significant change location service to preserve battery life.
-    CLLocation *currentLocation = locations.lastObject;
-
-    if (currentLocation.horizontalAccuracy < 0) {
-        return;
-    }
-    
-    // Check for cached locations.
-    NSTimeInterval locationTimeInterval = [currentLocation.timestamp timeIntervalSinceNow];
-    if (locationTimeInterval < 10.0) {
-        [Trap fetchTrapsNearLocation:currentLocation completionHandler:^(NSArray *speedTraps) {
-            [self configureRegionsForSpeedTraps:speedTraps radius:100.0];
-        }];
-    }
+    [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
+        [self configureRegionsForSpeedTraps:speedTraps radius:kRegionRadius];
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
@@ -147,28 +212,17 @@
     NSLog(@"Monitoring region: %@", region.identifier);
 }
 
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    NSLog(@"Error for region <%@>: %@", region.identifier, error.localizedDescription);
+}
 
 #pragma mark - Actions
-
-- (IBAction)onZoomToLocationButtonTapped:(id)sender {
-    MKCoordinateSpan currentRegionSpan = self.mapView.region.span;
-    if (currentRegionSpan.latitudeDelta > 1.0 || currentRegionSpan.longitudeDelta > 1.0) {
-        MKCoordinateRegion region;
-        region.center = self.currentLocation.coordinate;
-        region.span = MKCoordinateSpanMake(0.05, 0.05);
-        [self.mapView setRegion:region animated:YES];
-    } else {
-        [self.mapView setCenterCoordinate:self.currentLocation.coordinate animated:YES];
-    }
-}
 
 - (IBAction)onMonitorSwitchToggled:(UISwitch *)sender {
     if (sender.isOn) {
         [self startMonitoringForSpeedTraps];
-        self.navigationItem.title = @"Monitoring...";
     } else {
         [self stopMonitoringForSpeedTraps];
-        self.navigationItem.title = @"DTMB";
     }
 }
 
@@ -186,7 +240,20 @@
     [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
-                [self overlayMapWithSpeedTraps:speedTraps radius:100.0];
+                [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+            }];
+        }
+    }];
+}
+
+- (IBAction)onReportTrapButtonTapped:(id)sender {
+    Trap *speedTrap = [Trap object];
+    speedTrap.location = [PFGeoPoint geoPointWithLocation:self.currentLocation];
+    [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            
+            [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
+                [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
             }];
         }
     }];
@@ -195,35 +262,12 @@
 
 #pragma mark - Accessors
 
-- (CLLocationManager *)locationManager {
-    if (!_locationManager) {
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ||
-            [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-            // If the user has turned off or denied authorization for location services,
-            // then do nothing.
-        } else {
-            _locationManager = [[CLLocationManager alloc] init];
-            _locationManager.delegate = self;
-            
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-                if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                    [_locationManager requestAlwaysAuthorization];
-                }
-            }
-        }
-    }
-    return _locationManager;
-}
-
 - (CLLocation *)currentLocation {
     return self.locationManager.location;
 }
 
--(NSMutableArray *)monitoredRegions {
-    if (!_monitoredRegions) {
-        _monitoredRegions = [NSMutableArray array];
-    }
-    return _monitoredRegions;
+- (BOOL)isGPSOn {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"useGPS"];
 }
 
 @end
