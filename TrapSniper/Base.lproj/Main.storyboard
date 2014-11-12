@@ -69,6 +69,7 @@
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KjT-tg-4Ws">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" red="0.89019607840000003" green="0.49803921569999998" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="onMonitorSwitchToggled:" destination="QA9-KZ-SVb" eventType="valueChanged" id="0BV-Tw-3MP"/>
                                 </connections>
@@ -139,11 +140,10 @@
             </objects>
             <point key="canvasLocation" x="3798" y="703"/>
         </scene>
-        <!--Map-->
+        <!--Navigation Controller-->
         <scene sceneID="dox-MQ-2wx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DuF-gr-CAB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="map_marker-50" id="ckE-ci-27M"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lBm-a0-2oe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -178,7 +178,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map_marker-50" width="25" height="25"/>
         <image name="report-trap-button" width="75" height="75"/>
         <image name="settings" width="25" height="25"/>
     </resources>
