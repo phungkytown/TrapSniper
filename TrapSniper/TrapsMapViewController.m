@@ -250,22 +250,27 @@
         return;
     }
     
-    CGPoint touchPoint = [gesture locationInView:self.mapView];
-    CLLocationCoordinate2D touchCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    CLLocation *touchLocation = [[CLLocation alloc] initWithLatitude:touchCoordinate.latitude longitude:touchCoordinate.longitude];
-    PFGeoPoint *touchGeoPoint = [PFGeoPoint geoPointWithLocation:touchLocation];
-    Trap *speedTrap = [Trap object];
-    speedTrap.location = touchGeoPoint;
-    [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
-            [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
-                [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
-            }];
-        } else {
-            [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
-        }
-    }];
+    if (self.isMonitoring) {
+        CGPoint touchPoint = [gesture locationInView:self.mapView];
+        CLLocationCoordinate2D touchCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        CLLocation *touchLocation = [[CLLocation alloc] initWithLatitude:touchCoordinate.latitude longitude:touchCoordinate.longitude];
+        PFGeoPoint *touchGeoPoint = [PFGeoPoint geoPointWithLocation:touchLocation];
+        Trap *speedTrap = [Trap object];
+        speedTrap.location = touchGeoPoint;
+        [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
+                [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
+                    [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+                }];
+            } else {
+                [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
+            }
+        }];
+    } else {
+        [TSMessage showNotificationWithTitle:@"Whoops!" subtitle:@"Please turn on monitoring to report speed traps." type:TSMessageNotificationTypeWarning];
+    }
+    
 }
 
 - (IBAction)onReportTrapButtonTapped:(id)sender {
@@ -282,6 +287,8 @@
                 [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
             }
         }];
+    } else {
+        [TSMessage showNotificationWithTitle:@"Whoops!" subtitle:@"Please turn on monitoring to report speed traps." type:TSMessageNotificationTypeWarning];
     }
 }
 
