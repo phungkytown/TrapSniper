@@ -39,7 +39,7 @@
     
     [self.toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.toolbar setShadowImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny];
-    [self.toolbar setBarTintColor:[UIColor colorWithRed:177.0/255.0 green:29.0/255.0 blue:44.0/255.0 alpha:1.0]];
+    [self.toolbar setBarTintColor:kRedColor];
     self.toolbar.items = @[userTrackingButtonItem];
     
     // Setup the location manager.
@@ -49,6 +49,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    // Show the report speed trap button.
     [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.reportButtonTrailingConstraint.constant = 16;
         [self.view layoutIfNeeded];
@@ -62,12 +63,10 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+    self.locationManager.distanceFilter = kCLLocationAccuracyKilometer;
     if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [self.locationManager requestAlwaysAuthorization];
     }
-    
-    NSLog(@"%@", self.currentLocation);
 }
 
 - (void)startMonitoringForSpeedTraps {
@@ -78,7 +77,7 @@
             [self.locationManager startMonitoringSignificantLocationChanges];
         }
     }
-    [TSMessage showNotificationInViewController:self title:@"Monitoring is ON." subtitle:@"You'll be notified when you're near a speed trap." type:TSMessageNotificationTypeMessage duration:1.0];
+    [TSMessage showNotificationInViewController:self title:@"Monitoring is ON." subtitle:@"You'll be notified when you're near a speed trap." type:TSMessageNotificationTypeMessage];
 }
 
 - (void)stopMonitoringForSpeedTraps {
@@ -88,7 +87,7 @@
     } else {
         [self.locationManager stopMonitoringSignificantLocationChanges];
     }
-    [TSMessage showNotificationInViewController:self title:@"Monitoring is OFF." subtitle:nil type:TSMessageNotificationTypeMessage duration:1.0];
+    [TSMessage showNotificationInViewController:self title:@"Monitoring is OFF." subtitle:nil type:TSMessageNotificationTypeMessage];
 }
 
 - (void)overlayMapWithSpeedTraps:(NSArray *)speedTraps radius:(CLLocationDistance)radius {
@@ -124,7 +123,7 @@
 
 - (void)scheduleLocalNotificationForRegion:(CLCircularRegion *)region {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = [NSString stringWithFormat:@"Heads up! There's a speed trap nearby. <Region: %@>", region.identifier];
+    notification.alertBody = [NSString stringWithFormat:@"Heads up! A speed trap has been reported near you. <Region: %@>", region.identifier];
     notification.regionTriggersOnce = NO;
     notification.region = region;
     notification.soundName = UILocalNotificationDefaultSoundName;
@@ -134,10 +133,10 @@
 - (void)unregisterMonitoredRegions {
     // Unregister regions currently being monitored.
     for (CLCircularRegion *region in self.locationManager.monitoredRegions.allObjects) {
-        [self.locationManager stopMonitoringForRegion:region];
+        [self.locationManager performSelector:@selector(stopMonitoringForRegion:) withObject:region afterDelay:0.1];
     }
     
-    NSLog(@"%@", self.locationManager.monitoredRegions.allObjects);
+    NSLog(@"%@", @(self.locationManager.monitoredRegions.count));
 }
 
 
@@ -179,7 +178,7 @@
         MKCoordinateRegion region;
         region.center = userLocation.coordinate;
         region.span = MKCoordinateSpanMake(0.1, 0.1);
-        [mapView setRegion:region animated:NO];
+        [mapView setRegion:region animated:YES];
     });
 }
 
@@ -193,7 +192,6 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
     
     if (self.isMonitoring) {
-        // We're using the significant change location service to preserve battery life.
         [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
             [self configureRegionsForSpeedTraps:speedTraps radius:kRegionRadius];
         }];
@@ -202,16 +200,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"Entering region: %@", region.identifier);
-    
-    if (NSClassFromString(@"UIAlertController")) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Heads up!" message:@"There's a speed trap nearby." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Heads up!" message:@"There's speed trap nearby." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-    }
+    [TSMessage showNotificationWithTitle:@"Heads up!" subtitle:@"A speed trap has been reported near you." type:TSMessageNotificationTypeMessage];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
@@ -220,17 +209,25 @@
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     NSLog(@"Monitoring region: %@", region.identifier);
+    // [manager requestStateForRegion:region];
+    [manager performSelector:@selector(requestStateForRegion:) withObject:region afterDelay:0.1];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"Error for region <%@>: %@", region.identifier, error.localizedDescription);
 }
 
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    if (state == CLRegionStateInside) {
+        NSLog(@"You are already inside region: %@", region.identifier);
+    }
+}
 
-#pragma markk - TSMessageView Delegate
+
+#pragma mark - TSMessageView Delegate
 
 - (void)customizeMessageView:(TSMessageView *)messageView {
-    messageView.alpha = 0.85;
+    messageView.alpha = 0.9;
 }
 
 
@@ -250,27 +247,22 @@
         return;
     }
     
-    if (self.isMonitoring) {
-        CGPoint touchPoint = [gesture locationInView:self.mapView];
-        CLLocationCoordinate2D touchCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        CLLocation *touchLocation = [[CLLocation alloc] initWithLatitude:touchCoordinate.latitude longitude:touchCoordinate.longitude];
-        PFGeoPoint *touchGeoPoint = [PFGeoPoint geoPointWithLocation:touchLocation];
-        Trap *speedTrap = [Trap object];
-        speedTrap.location = touchGeoPoint;
-        [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
-                [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
-                    [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
-                }];
-            } else {
-                [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
-            }
-        }];
-    } else {
-        [TSMessage showNotificationWithTitle:@"Whoops!" subtitle:@"Please turn on monitoring to report speed traps." type:TSMessageNotificationTypeWarning];
-    }
-    
+    CGPoint touchPoint = [gesture locationInView:self.mapView];
+    CLLocationCoordinate2D touchCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    CLLocation *touchLocation = [[CLLocation alloc] initWithLatitude:touchCoordinate.latitude longitude:touchCoordinate.longitude];
+    PFGeoPoint *touchGeoPoint = [PFGeoPoint geoPointWithLocation:touchLocation];
+    Trap *speedTrap = [Trap object];
+    speedTrap.location = touchGeoPoint;
+    [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
+            [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
+                [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+            }];
+        } else {
+            [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
+        }
+    }];
 }
 
 - (IBAction)onReportTrapButtonTapped:(id)sender {
@@ -288,7 +280,7 @@
             }
         }];
     } else {
-        [TSMessage showNotificationWithTitle:@"Whoops!" subtitle:@"Please turn on monitoring to report speed traps." type:TSMessageNotificationTypeWarning];
+        [TSMessage showNotificationWithTitle:@"Whoops!" subtitle:@"Please turn on monitoring to report a speed trap near your current location." type:TSMessageNotificationTypeWarning];
     }
 }
 

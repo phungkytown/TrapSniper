@@ -37,6 +37,7 @@
     
     // Configure the cell...
     self.GPSSwitch = [[UISwitch alloc] init];
+    [self.GPSSwitch setOnTintColor:[UIColor colorWithRed:227.0/255.0 green:127.0/255.0 blue:97.0/255.0 alpha:1.0]];
     [self.GPSSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"useGPS"] animated:NO];
     [self.GPSSwitch addTarget:self action:@selector(onGPSSwitchToggled:) forControlEvents:UIControlEventValueChanged];
     cell.accessoryView = self.GPSSwitch;
@@ -53,7 +54,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0) {
-        return @"Enabling GPS will improve accuracy at the expense of battery life. (Not recommended)";
+        return @"Enabling GPS will improve accuracy at the expense of battery life.";
     }
     return nil;
 }

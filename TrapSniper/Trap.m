@@ -31,7 +31,7 @@
     [trapsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             completion(objects);
-        }
+        } 
     }];
 }
 

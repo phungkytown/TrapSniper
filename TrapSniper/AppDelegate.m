@@ -58,8 +58,6 @@
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:177.0/255.0 green:29.0/255.0 blue:44.0/255.0 alpha:1.0]];
     [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName:[UIColor whiteColor] }];
-    
-    // [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:227.0/255.0 green:127.0/255.0 blue:97.0/255.0 alpha:1.0]];
 }
 
 @end
