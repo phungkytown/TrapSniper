@@ -40,6 +40,10 @@
 }
 
 - (NSString *)title {
+    return @"Speed Trap";
+}
+
+- (NSString *)subtitle {
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];

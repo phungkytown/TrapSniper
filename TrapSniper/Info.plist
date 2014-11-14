@@ -23,7 +23,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Pretty please.</string>
+	<string>Your location is used to monitor and notify you of any reported speed traps nearby.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Your location is used to monitor and notify you of any reported speed traps nearby.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

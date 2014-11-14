@@ -7,9 +7,12 @@
 //
 
 #import <Parse/Parse.h>
+#import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -49,7 +52,11 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // Before the application terminates, purge all monitored regions.
+    self.locationManager = [[CLLocationManager alloc] init];
+    [self.locationManager.monitoredRegions enumerateObjectsUsingBlock:^(CLRegion *region, BOOL *stop) {
+        [self.locationManager stopMonitoringForRegion:region];
+    }];
 }
 
 -(void)configureViews {
