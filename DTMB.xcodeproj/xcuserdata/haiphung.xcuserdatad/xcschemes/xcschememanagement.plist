@@ -4,14 +4,19 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>TrapSniper.xcscheme</key>
+		<key>DTMB.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>8B1452DF1A1A54850058BDFA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8BCC83DE1A0C597400BCAD61</key>
 		<dict>
 			<key>primary</key>

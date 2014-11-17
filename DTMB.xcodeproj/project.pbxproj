@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C5A90AF59F47753A086B5C8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1EB4FBE0DDBA590B6AC8E6 /* libPods.a */; };
+		8B1452E51A1A54850058BDFA /* DTMB_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1452E41A1A54850058BDFA /* DTMB_Tests.m */; };
 		8B1FD54C1A127A050051E61B /* SetttingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1FD54B1A127A050051E61B /* SetttingsViewController.m */; };
 		8BCC83E51A0C597400BCAD61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83E41A0C597400BCAD61 /* main.m */; };
 		8BCC83E81A0C597400BCAD61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83E71A0C597400BCAD61 /* AppDelegate.m */; };
 		8BCC83EE1A0C597400BCAD61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83EC1A0C597400BCAD61 /* Main.storyboard */; };
 		8BCC83F01A0C597400BCAD61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83EF1A0C597400BCAD61 /* Images.xcassets */; };
 		8BCC83F31A0C597400BCAD61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BCC83F11A0C597400BCAD61 /* LaunchScreen.xib */; };
-		8BCC83FF1A0C597400BCAD61 /* TrapSniperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC83FE1A0C597400BCAD61 /* TrapSniperTests.m */; };
 		8BCC840A1A0C5BD500BCAD61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84081A0C5BD500BCAD61 /* Bolts.framework */; };
 		8BCC840B1A0C5BD500BCAD61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84091A0C5BD500BCAD61 /* Parse.framework */; };
 		8BCC84171A0C5CB700BCAD61 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC840C1A0C5CB700BCAD61 /* AudioToolbox.framework */; };
@@ -29,25 +30,26 @@
 		8BCC84211A0C5CB700BCAD61 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCC84161A0C5CB700BCAD61 /* SystemConfiguration.framework */; };
 		8BCC84271A0C840100BCAD61 /* Trap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC84261A0C840100BCAD61 /* Trap.m */; };
 		8BCC842A1A0D068B00BCAD61 /* TrapsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC84291A0D068B00BCAD61 /* TrapsMapViewController.m */; };
-		F618B075A4D7852D176211C8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4DC10836B439FC41783E8A /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8BCC83F91A0C597400BCAD61 /* PBXContainerItemProxy */ = {
+		8B1452E61A1A54850058BDFA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BCC83D71A0C597400BCAD61 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8BCC83DE1A0C597400BCAD61;
-			remoteInfo = TrapSniper;
+			remoteInfo = DTMB;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0067AC815CFE1D94623E6136 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		627E088BCD0F55DC980D4BE9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6D4E2A8175AF1F6251F30F3C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8B1452E01A1A54850058BDFA /* DTMB Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DTMB Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B1452E31A1A54850058BDFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B1452E41A1A54850058BDFA /* DTMB_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTMB_Tests.m; sourceTree = "<group>"; };
 		8B1FD54A1A127A050051E61B /* SetttingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetttingsViewController.h; sourceTree = "<group>"; };
 		8B1FD54B1A127A050051E61B /* SetttingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetttingsViewController.m; sourceTree = "<group>"; };
-		8BCC83DF1A0C597400BCAD61 /* TrapSniper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrapSniper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BCC83DF1A0C597400BCAD61 /* DTMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCC83E31A0C597400BCAD61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BCC83E41A0C597400BCAD61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BCC83E61A0C597400BCAD61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 		8BCC83ED1A0C597400BCAD61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BCC83EF1A0C597400BCAD61 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8BCC83F21A0C597400BCAD61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		8BCC83F81A0C597400BCAD61 /* TrapSniperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrapSniperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCC83FD1A0C597400BCAD61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BCC83FE1A0C597400BCAD61 /* TrapSniperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrapSniperTests.m; sourceTree = "<group>"; };
 		8BCC84081A0C5BD500BCAD61 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -75,10 +76,18 @@
 		8BCC84261A0C840100BCAD61 /* Trap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trap.m; sourceTree = "<group>"; };
 		8BCC84281A0D068B00BCAD61 /* TrapsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrapsMapViewController.h; sourceTree = "<group>"; };
 		8BCC84291A0D068B00BCAD61 /* TrapsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrapsMapViewController.m; sourceTree = "<group>"; };
-		AF4DC10836B439FC41783E8A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD8FBEBD9154558310D726E7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FE1EB4FBE0DDBA590B6AC8E6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8B1452DD1A1A54850058BDFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BCC83DC1A0C597400BCAD61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,14 +105,7 @@
 				8BCC84211A0C5CB700BCAD61 /* SystemConfiguration.framework in Frameworks */,
 				8BCC840B1A0C5BD500BCAD61 /* Parse.framework in Frameworks */,
 				8BCC840A1A0C5BD500BCAD61 /* Bolts.framework in Frameworks */,
-				F618B075A4D7852D176211C8 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BCC83F51A0C597400BCAD61 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				1C5A90AF59F47753A086B5C8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,32 +115,50 @@
 		597880A0706691FBDF9C28BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF4DC10836B439FC41783E8A /* libPods.a */,
+				FE1EB4FBE0DDBA590B6AC8E6 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B1452E11A1A54850058BDFA /* DTMB Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8B1452E41A1A54850058BDFA /* DTMB_Tests.m */,
+				8B1452E21A1A54850058BDFA /* Supporting Files */,
+			);
+			path = "DTMB Tests";
+			sourceTree = "<group>";
+		};
+		8B1452E21A1A54850058BDFA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8B1452E31A1A54850058BDFA /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8BCC83D61A0C597400BCAD61 = {
 			isa = PBXGroup;
 			children = (
-				8BCC83E11A0C597400BCAD61 /* TrapSniper */,
-				8BCC83FB1A0C597400BCAD61 /* TrapSniperTests */,
+				8BCC83E11A0C597400BCAD61 /* DTMB */,
+				8BCC83FB1A0C597400BCAD61 /* DTMBTests */,
+				8B1452E11A1A54850058BDFA /* DTMB Tests */,
 				8BCC83E01A0C597400BCAD61 /* Products */,
-				92B2BE2E9F69D6B0743E3409 /* Pods */,
 				597880A0706691FBDF9C28BB /* Frameworks */,
+				FC01557E6CCB6AED82779F7D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		8BCC83E01A0C597400BCAD61 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8BCC83DF1A0C597400BCAD61 /* TrapSniper.app */,
-				8BCC83F81A0C597400BCAD61 /* TrapSniperTests.xctest */,
+				8BCC83DF1A0C597400BCAD61 /* DTMB.app */,
+				8B1452E01A1A54850058BDFA /* DTMB Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8BCC83E11A0C597400BCAD61 /* TrapSniper */ = {
+		8BCC83E11A0C597400BCAD61 /* DTMB */ = {
 			isa = PBXGroup;
 			children = (
 				8BCC83E61A0C597400BCAD61 /* AppDelegate.h */,
@@ -154,6 +174,7 @@
 				8BCC84251A0C840100BCAD61 /* Trap.h */,
 				8BCC84261A0C840100BCAD61 /* Trap.m */,
 			);
+			name = DTMB;
 			path = TrapSniper;
 			sourceTree = "<group>";
 		};
@@ -179,12 +200,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8BCC83FB1A0C597400BCAD61 /* TrapSniperTests */ = {
+		8BCC83FB1A0C597400BCAD61 /* DTMBTests */ = {
 			isa = PBXGroup;
 			children = (
 				8BCC83FE1A0C597400BCAD61 /* TrapSniperTests.m */,
 				8BCC83FC1A0C597400BCAD61 /* Supporting Files */,
 			);
+			name = DTMBTests;
 			path = TrapSniperTests;
 			sourceTree = "<group>";
 		};
@@ -196,11 +218,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		92B2BE2E9F69D6B0743E3409 /* Pods */ = {
+		FC01557E6CCB6AED82779F7D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				627E088BCD0F55DC980D4BE9 /* Pods.debug.xcconfig */,
-				0067AC815CFE1D94623E6136 /* Pods.release.xcconfig */,
+				FD8FBEBD9154558310D726E7 /* Pods.debug.xcconfig */,
+				6D4E2A8175AF1F6251F30F3C /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -208,42 +230,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8BCC83DE1A0C597400BCAD61 /* TrapSniper */ = {
+		8B1452DF1A1A54850058BDFA /* DTMB Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8BCC84021A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "TrapSniper" */;
+			buildConfigurationList = 8B1452E81A1A54850058BDFA /* Build configuration list for PBXNativeTarget "DTMB Tests" */;
 			buildPhases = (
-				3201D54DBA97D7E6F8E70503 /* Check Pods Manifest.lock */,
+				8B1452DC1A1A54850058BDFA /* Sources */,
+				8B1452DD1A1A54850058BDFA /* Frameworks */,
+				8B1452DE1A1A54850058BDFA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B1452E71A1A54850058BDFA /* PBXTargetDependency */,
+			);
+			name = "DTMB Tests";
+			productName = "DTMB Tests";
+			productReference = 8B1452E01A1A54850058BDFA /* DTMB Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8BCC83DE1A0C597400BCAD61 /* DTMB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BCC84021A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "DTMB" */;
+			buildPhases = (
+				88B69FED490B5AC5D40182BB /* Check Pods Manifest.lock */,
 				8BCC83DB1A0C597400BCAD61 /* Sources */,
 				8BCC83DC1A0C597400BCAD61 /* Frameworks */,
 				8BCC83DD1A0C597400BCAD61 /* Resources */,
-				A4C64FB7F074740271598C8D /* Copy Pods Resources */,
+				4A010B29048C8AA577D915AB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TrapSniper;
+			name = DTMB;
 			productName = TrapSniper;
-			productReference = 8BCC83DF1A0C597400BCAD61 /* TrapSniper.app */;
+			productReference = 8BCC83DF1A0C597400BCAD61 /* DTMB.app */;
 			productType = "com.apple.product-type.application";
-		};
-		8BCC83F71A0C597400BCAD61 /* TrapSniperTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8BCC84051A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "TrapSniperTests" */;
-			buildPhases = (
-				8BCC83F41A0C597400BCAD61 /* Sources */,
-				8BCC83F51A0C597400BCAD61 /* Frameworks */,
-				8BCC83F61A0C597400BCAD61 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8BCC83FA1A0C597400BCAD61 /* PBXTargetDependency */,
-			);
-			name = TrapSniperTests;
-			productName = TrapSniperTests;
-			productReference = 8BCC83F81A0C597400BCAD61 /* TrapSniperTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -254,6 +276,10 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Hai Phung";
 				TargetAttributes = {
+					8B1452DF1A1A54850058BDFA = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 8BCC83DE1A0C597400BCAD61;
+					};
 					8BCC83DE1A0C597400BCAD61 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = SR57LX3D85;
@@ -263,13 +289,9 @@
 							};
 						};
 					};
-					8BCC83F71A0C597400BCAD61 = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 8BCC83DE1A0C597400BCAD61;
-					};
 				};
 			};
-			buildConfigurationList = 8BCC83DA1A0C597400BCAD61 /* Build configuration list for PBXProject "TrapSniper" */;
+			buildConfigurationList = 8BCC83DA1A0C597400BCAD61 /* Build configuration list for PBXProject "DTMB" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -282,13 +304,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8BCC83DE1A0C597400BCAD61 /* TrapSniper */,
-				8BCC83F71A0C597400BCAD61 /* TrapSniperTests */,
+				8BCC83DE1A0C597400BCAD61 /* DTMB */,
+				8B1452DF1A1A54850058BDFA /* DTMB Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8B1452DE1A1A54850058BDFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BCC83DD1A0C597400BCAD61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,32 +328,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BCC83F61A0C597400BCAD61 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3201D54DBA97D7E6F8E70503 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A4C64FB7F074740271598C8D /* Copy Pods Resources */ = {
+		4A010B29048C8AA577D915AB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -339,9 +346,32 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		88B69FED490B5AC5D40182BB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8B1452DC1A1A54850058BDFA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B1452E51A1A54850058BDFA /* DTMB_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BCC83DB1A0C597400BCAD61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,21 +384,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BCC83F41A0C597400BCAD61 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BCC83FF1A0C597400BCAD61 /* TrapSniperTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8BCC83FA1A0C597400BCAD61 /* PBXTargetDependency */ = {
+		8B1452E71A1A54850058BDFA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8BCC83DE1A0C597400BCAD61 /* TrapSniper */;
-			targetProxy = 8BCC83F91A0C597400BCAD61 /* PBXContainerItemProxy */;
+			target = 8BCC83DE1A0C597400BCAD61 /* DTMB */;
+			targetProxy = 8B1452E61A1A54850058BDFA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -392,6 +414,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8B1452E91A1A54850058BDFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DTMB Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DTMB.app/DTMB";
+			};
+			name = Debug;
+		};
+		8B1452EA1A1A54850058BDFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DTMB Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DTMB.app/DTMB";
+			};
+			name = Release;
+		};
 		8BCC84001A0C597400BCAD61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -470,7 +526,7 @@
 		};
 		8BCC84031A0C597400BCAD61 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 627E088BCD0F55DC980D4BE9 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = FD8FBEBD9154558310D726E7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -483,14 +539,14 @@
 				INFOPLIST_FILE = TrapSniper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DTMB;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		8BCC84041A0C597400BCAD61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0067AC815CFE1D94623E6136 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6D4E2A8175AF1F6251F30F3C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -503,49 +559,23 @@
 				INFOPLIST_FILE = TrapSniper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DTMB;
 				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-		8BCC84061A0C597400BCAD61 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TrapSniperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrapSniper.app/TrapSniper";
-			};
-			name = Debug;
-		};
-		8BCC84071A0C597400BCAD61 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TrapSniperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrapSniper.app/TrapSniper";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8BCC83DA1A0C597400BCAD61 /* Build configuration list for PBXProject "TrapSniper" */ = {
+		8B1452E81A1A54850058BDFA /* Build configuration list for PBXNativeTarget "DTMB Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B1452E91A1A54850058BDFA /* Debug */,
+				8B1452EA1A1A54850058BDFA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8BCC83DA1A0C597400BCAD61 /* Build configuration list for PBXProject "DTMB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BCC84001A0C597400BCAD61 /* Debug */,
@@ -554,20 +584,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8BCC84021A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "TrapSniper" */ = {
+		8BCC84021A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "DTMB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BCC84031A0C597400BCAD61 /* Debug */,
 				8BCC84041A0C597400BCAD61 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8BCC84051A0C597400BCAD61 /* Build configuration list for PBXNativeTarget "TrapSniperTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8BCC84061A0C597400BCAD61 /* Debug */,
-				8BCC84071A0C597400BCAD61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
