@@ -14,14 +14,16 @@
 #import "Trap.h"
 
 #define kRegionRadius 200.0
-#define kRegionOverlayRadius 500.0
+#define kRegionOverlayRadius 200.0
 #define kRedColor [UIColor colorWithRed:177.0/255.0 green:29.0/255.0 blue:44.0/255.0 alpha:1.0]
+#define kLightRedColor [UIColor colorWithRed:277.0/255.0 green:127.0/255.0 blue:97.0/255.0 alpha:1.0]
 
 @interface TrapsMapViewController () <MKMapViewDelegate, TSMessageViewProtocol, UIAlertViewDelegate>
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *reportButtonTrailingConstraint;
 @property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet UIButton *reportTrapButton;
 @property (nonatomic, getter=isGPSOn) BOOL GPSOn;
 @property (nonatomic, getter=isMonitoring) BOOL monitoring;
 @property (nonatomic) Trap *selectedTrap;
@@ -177,7 +179,7 @@
     }
     
     MKAnnotationView *pin = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"SpeedTrapPin"];
-    pin.image = [[UIImage alloc] init];
+    pin.image = [UIImage imageNamed:@"trap-pin-image"];
     pin.canShowCallout = YES;
     UIImageView *leftCalloutImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left-callout"]];
     pin.leftCalloutAccessoryView = leftCalloutImage;

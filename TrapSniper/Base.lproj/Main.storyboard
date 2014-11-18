@@ -85,6 +85,7 @@
                     <connections>
                         <outlet property="mapView" destination="cTP-kf-s1f" id="QAr-MV-vFX"/>
                         <outlet property="reportButtonTrailingConstraint" destination="IU2-pX-ptX" id="NbD-Fv-jDK"/>
+                        <outlet property="reportTrapButton" destination="K01-pJ-Pbg" id="gr5-cy-oWb"/>
                         <outlet property="toolbar" destination="Gwu-hd-951" id="PoY-gy-YY2"/>
                     </connections>
                 </viewController>
@@ -138,7 +139,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5P7-27-8dZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3798" y="703"/>
+            <point key="canvasLocation" x="3790" y="653"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dox-MQ-2wx">
