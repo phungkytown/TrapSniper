@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DuF-gr-CAB">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--speed traps near you-->
+        <!--Speed Traps Near You-->
         <scene sceneID="Imv-yU-IuH">
             <objects>
                 <viewController id="QA9-KZ-SVb" customClass="TrapsMapViewController" sceneMemberID="viewController">
@@ -65,7 +64,7 @@
                             <constraint firstItem="qNm-KJ-Q8H" firstAttribute="top" secondItem="K01-pJ-Pbg" secondAttribute="bottom" constant="16" id="wcg-RG-scB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="speed traps near you" id="ZgU-zB-wsJ">
+                    <navigationItem key="navigationItem" title="Speed Traps Near You" id="ZgU-zB-wsJ">
                         <barButtonItem key="leftBarButtonItem" id="0FH-fz-H0N">
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KjT-tg-4Ws">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
@@ -98,7 +97,7 @@
             </objects>
             <point key="canvasLocation" x="2133" y="759"/>
         </scene>
-        <!--settings-->
+        <!--Settings-->
         <scene sceneID="EHV-QM-cAi">
             <objects>
                 <tableViewController id="trh-jr-Jld" customClass="SetttingsViewController" sceneMemberID="viewController">
@@ -128,7 +127,7 @@
                             <outlet property="delegate" destination="trh-jr-Jld" id="ubg-oe-IGU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="settings" id="OMF-Op-cRE">
+                    <navigationItem key="navigationItem" title="Settings" id="OMF-Op-cRE">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8qp-eG-awy">
                             <color key="tintColor" red="0.89019607840000003" green="0.49803921569999998" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

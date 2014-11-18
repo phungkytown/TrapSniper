@@ -18,7 +18,7 @@
 @property (nonatomic) NSDate *createdAt;
 
 + (NSString *)parseClassName;
-+ (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *))completion;
++ (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *, NSError *))completion;
 
 
 #pragma mark - MKAnnotation Protocol

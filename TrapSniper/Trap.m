@@ -22,7 +22,7 @@
     return @"Trap";
 }
 
-+ (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *))completion {
++ (void)fetchTrapsNearLocation:(CLLocation *)location completionHandler:(void(^)(NSArray *, NSError *))completion {
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLocation:location];
     PFQuery *trapsQuery = [Trap query];
     [trapsQuery whereKey:@"location" nearGeoPoint:geoPoint withinMiles:10.0];
@@ -30,8 +30,10 @@
     [trapsQuery setLimit:20];
     [trapsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            completion(objects);
-        } 
+            completion(objects, nil);
+        } else {
+            completion(nil, error);
+        }
     }];
 }
 

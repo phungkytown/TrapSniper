@@ -65,19 +65,18 @@
 }
 
 - (void)startMonitoringForSpeedTraps {
-    if ([CLLocationManager locationServicesEnabled]) {
-        if (self.isGPSOn) {
-            [self.locationManager startUpdatingLocation];
-        } else {
-            [self.locationManager startMonitoringSignificantLocationChanges];
-        }
-        
-        // Show the report speed trap button.
-        [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.reportButtonTrailingConstraint.constant = 16;
-            [self.view layoutIfNeeded];
-        } completion:nil];
+    if (self.isGPSOn) {
+        [self.locationManager startUpdatingLocation];
+    } else {
+        [self.locationManager startMonitoringSignificantLocationChanges];
     }
+    
+    // Show the report speed trap button.
+    [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.reportButtonTrailingConstraint.constant = 16;
+        [self.view layoutIfNeeded];
+    } completion:nil];
+    
     [TSMessage showNotificationInViewController:self title:@"Monitoring is ON." subtitle:@"You'll be notified when you're near a speed trap." type:TSMessageNotificationTypeMessage];
 }
 
@@ -131,7 +130,7 @@
 
 - (void)scheduleLocalNotificationForRegion:(CLCircularRegion *)region {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = [NSString stringWithFormat:@"Heads up! A speed trap has been reported near you. <Region: %@>", region.identifier];
+    notification.alertBody = @"Heads up! A speed trap has been reported near you.";
     notification.regionTriggersOnce = NO;
     notification.region = region;
     notification.soundName = UILocalNotificationDefaultSoundName;
@@ -161,8 +160,14 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     CLLocation *mapCenter = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
-    [Trap fetchTrapsNearLocation:mapCenter completionHandler:^(NSArray *speedTraps) {
-        [self overlayMapWithSpeedTraps:speedTraps radius:kRegionRadius];
+    [Trap fetchTrapsNearLocation:mapCenter completionHandler:^(NSArray *speedTraps, NSError *error) {
+        if (error) {
+            // show alert
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        } else {
+            [self overlayMapWithSpeedTraps:speedTraps radius:kRegionRadius];
+        }
     }];
 }
 
@@ -223,16 +228,30 @@
     });
 }
 
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error {
+    NSString *alertMessage = @"Please make sure that location services are enabled.\nSettings -> Privacy -> Location Services";
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Unable to Locate You" message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
+
 #pragma mark - Location Manager Delegate
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"Error: %@", error.localizedDescription);
+    [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     if (self.isMonitoring) {
-        [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
-            [self configureRegionsForSpeedTraps:speedTraps radius:kRegionRadius];
+        [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps, NSError *error) {
+            if (error) {
+                // show alert
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alertView show];
+            } else {
+                [self configureRegionsForSpeedTraps:speedTraps radius:kRegionRadius];
+            }
         }];
     }
 }
@@ -254,7 +273,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"Error for region <%@>: %@", region.identifier, error.localizedDescription);
-    [TSMessage showNotificationWithTitle:@"Heads up!" subtitle:@"A speed trap has been reported near you." type:TSMessageNotificationTypeMessage];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
@@ -306,8 +324,13 @@
     [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
-            [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps) {
-                [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+            [Trap fetchTrapsNearLocation:touchLocation completionHandler:^(NSArray *speedTraps, NSError *error) {
+                if (error) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alertView show];
+                } else {
+                    [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+                }
             }];
         } else {
             [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
@@ -322,8 +345,13 @@
         [speedTrap saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap has been reported." type:TSMessageNotificationTypeSuccess];
-                [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps) {
-                    [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+                [Trap fetchTrapsNearLocation:self.currentLocation completionHandler:^(NSArray *speedTraps, NSError *error) {
+                    if (error) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alertView show];
+                    } else {
+                        [self overlayMapWithSpeedTraps:speedTraps radius:kRegionOverlayRadius];
+                    }
                 }];
             } else {
                 [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
