@@ -55,8 +55,11 @@
     // Before the application terminates, purge all monitored regions.
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager.monitoredRegions enumerateObjectsUsingBlock:^(CLRegion *region, BOOL *stop) {
-        [self.locationManager stopMonitoringForRegion:region];
+        [self.locationManager performSelector:@selector(stopMonitoringForRegion:) withObject:region afterDelay:0.1];
     }];
+    
+    [self.locationManager stopUpdatingLocation];
+    [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
 -(void)configureViews {

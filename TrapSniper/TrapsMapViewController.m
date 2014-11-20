@@ -149,7 +149,7 @@
 - (void)deleteSelectedTrap:(Trap *)trap {
     [Trap deleteAllInBackground:@[trap] block:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [TSMessage showNotificationWithTitle:@"Success!" subtitle:@"Speed trap was successfully removed." type:TSMessageNotificationTypeSuccess];
+            [TSMessage showNotificationInViewController:self title:@"Success!" subtitle:@"Speed trap was successfully removed." type:TSMessageNotificationTypeSuccess];
             [self mapView:self.mapView regionDidChangeAnimated:NO];
         } else {
             [TSMessage showNotificationWithTitle:@"Error!" subtitle:error.localizedDescription type:TSMessageNotificationTypeError];
